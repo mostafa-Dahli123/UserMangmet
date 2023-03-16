@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978808538425",
+    "project_id": "usermangmet",
+    "storage_bucket": "usermangmet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978808538425:android:e7323624e3a497b97b14e8",
+        "android_client_info": {
+          "package_name": "com.example.usermangmet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978808538425-b2119qc2mcspj5rmh2au4fgaptomct5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGgfM60_DQktYvNeP9OiwxbPb2-q6zyts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978808538425-b2119qc2mcspj5rmh2au4fgaptomct5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
