@@ -44,5 +44,13 @@
             android:text="SignUp"
             app:layout_constraintStart_toStartOf="@+id/etPasswordFragmrnSU"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordFragmrnSU" />
+
+        <TextView
+            android:id="@+id/SignUpbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SignUp"
+            tools:layout_editor_absoluteX="169dp"
+            tools:layout_editor_absoluteY="414dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

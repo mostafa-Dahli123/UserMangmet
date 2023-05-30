@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +67,13 @@ private Button btnAddAddFragment;
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        init();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -78,7 +86,7 @@ private Button btnAddAddFragment;
         etPhoneNum=getView().findViewById(R.id.etPhoneNum);
         etBirthday=getView().findViewById(R.id.etBirthday);
         etEmail1=getView().findViewById(R.id.etEmail1);
-
+btnAddAddFragment=getView().findViewById(R.id.btnAddAddFragment);
         btnAddAddFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,19 +112,19 @@ private Button btnAddAddFragment;
         User user=new User(fname,lname,phoneNum1,birthd,email2);
 
 
-        fbs.getFire().collection("Users").document("LA")
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        fbs.getFire().collection("Users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                      //  Log.d(TAG, "DocumentSnapshot successfully written!");
+                    public void onSuccess(DocumentReference documentReference) {
+
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //Log.w(TAG, "Error writing document", e);
+
                     }
                 });
+
     }
 }

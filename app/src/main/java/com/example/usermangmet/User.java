@@ -21,6 +21,12 @@ public class User {
    }
 
    public User(String fname, String lname, String phoneNum1, String birthd, String email2) {
+      Fname = fname;
+      Lname = lname;
+      BirthDay = birthd;
+      PhoneNum = phoneNum1;
+      Email = email2;
+      this.photo = "";
    }
 
    public String getFname() {
