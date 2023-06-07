@@ -2,7 +2,7 @@ package com.example.usermangmet;
 
 public class StudentUser {
 
-    String firsName , lastName ,Email,Birthday,PhoneNum;
+    String firstName , lastName ,Email,Birthday,PhoneNum;
 
 
 public StudentUser(){
@@ -10,7 +10,7 @@ public StudentUser(){
 }
 
     public StudentUser(String firsName, String lastName, String email, String birthday, String phoneNum) {
-        this.firsName = firsName;
+        this.firstName = firsName;
         this.lastName = lastName;
         Email = email;
         Birthday = birthday;
@@ -18,11 +18,11 @@ public StudentUser(){
     }
 
     public String getFirsName() {
-        return firsName;
+        return firstName;
     }
 
     public void setFirsName(String firsName) {
-        this.firsName = firsName;
+        this.firstName = firsName;
     }
 
     public String getLastName() {
