@@ -11,10 +11,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    ArrayList<User> userArrayList;
-    MyAdapter myAdapter;
-    FireBaseServices db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
         gotoLoginFragment();
     }
-    private void gotoLoginFragment() { FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+    private void gotoLoginFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new LogInFragment());
+        ft.commit();
+    }
+    /*
+    private void gotoLoginFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMain, new LogInFragment());
         ft.commit();
 
@@ -39,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         EventChangeListener()
 
-    }
-
+    }*/
+/*
     private void EventChangeListener() {
 
-        db.collection("Users")
+        db.collection()
                 .add
-    }
+    } */
 }

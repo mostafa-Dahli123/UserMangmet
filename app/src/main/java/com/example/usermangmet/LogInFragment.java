@@ -100,9 +100,7 @@ public class LogInFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // PUT YOUR CODE HERE
-                            FragmentTransaction ft =getActivity().getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.frameLayoutMain, new AddUserFragment());
-                                ft.commit();
+                            gotoUserListFragment();
 
                         } else {
                             // PUT YOUR CODE HERE
@@ -111,5 +109,19 @@ public class LogInFragment extends Fragment {
                 });
             }
         });
+    }
+
+    public void gotoAddUserFragment()
+    {
+        FragmentTransaction ft =getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new AddUserFragment());
+        ft.commit();
+    }
+
+    public void gotoUserListFragment()
+    {
+        FragmentTransaction ft =getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new UserListFragment());
+        ft.commit();
     }
 }

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-rra
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
     Context context;
     ArrayList<User>userArrayList;
 
@@ -36,11 +36,11 @@ rra
 
         User user= userArrayList.get(position);
 
-        holder. firstName.setText(user.firstname);
-        holder.lastName.setText(user.lastname);
-        holder.Email.setText(user.Email);
-        holder.Birthday.setText(user.Birthday);
-        holder.PhoneNum.setText(String.valueOf(user.PhoneNum));
+        holder. firstName.setText(user.getFname());
+        holder.lastName.setText(user.getLname());
+        holder.Email.setText(user.getEmail());
+        holder.Birthday.setText(user.getBirthDay());
+        holder.PhoneNum.setText(String.valueOf(user.getPhoneNum()));
     }
 
     @Override
@@ -49,7 +49,7 @@ rra
     }
     public static class  MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView firstName , lastName ,Email,Birthday,PhoneNum
+        TextView firstName , lastName ,Email,Birthday,PhoneNum;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
