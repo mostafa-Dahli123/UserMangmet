@@ -3,6 +3,7 @@ package com.example.usermangmet;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,11 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -109,16 +110,37 @@ public class UserListFragment extends Fragment {
 
 
     EventChangeListener();
+        //getUserData();
+    }
+
+    private void getUserData()
+    {
+
+        fbs.getFire().collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()){
+                    if(dc.getType() == DocumentChange.Type.ADDED){
+
+                        userArrayList.add(dc.getDocument().toObject(User.class));
+                    }
+            }
+        }}).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("check", e.getMessage());
+            }
+        });
+
     }
 
     private void EventChangeListener() {
-        fbs.getFire().collection("Users").orderBy("firstName", Query.Direction.ASCENDING)
+        fbs.getFire().collection("Users")//.orderBy("firstName", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
                         if (error != null){
-
 
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();

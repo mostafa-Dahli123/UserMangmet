@@ -101,6 +101,7 @@ public class LogInFragment extends Fragment {
                         if (task.isSuccessful()) {
                             // PUT YOUR CODE HERE
                             gotoUserListFragment();
+                            //gotoAddUserFragment();
 
                         } else {
                             // PUT YOUR CODE HERE

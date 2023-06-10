@@ -8,7 +8,7 @@ public class FireBaseServices {
     private static FireBaseServices instance;
     private  FirebaseAuth auth;
     private  FirebaseFirestore fire;
-    private FirebaseStorage storage;
+    private FirebaseStorage  storage;
 
     public FirebaseAuth getAuth() {
         return auth;
