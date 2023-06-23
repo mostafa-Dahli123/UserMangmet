@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -100,7 +101,7 @@ TextView name1,phone1,email1,birthday1;
             @Override
             public void onClick(View v) {
                 sendSMS(user1.getPhoneNum(), "Hello, this is "+user.getFname()+ " "+ user.getLname()+" I need help with "+subject+" please contact me"+user.getPhoneNum());
-
+                Toast.makeText(getContext(), "your help request has been sent ", Toast.LENGTH_SHORT).show();
             }
         });
         fbs=FireBaseServices.getInstance();
