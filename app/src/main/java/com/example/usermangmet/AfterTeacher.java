@@ -2,7 +2,6 @@ package com.example.usermangmet;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -10,21 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ForgetPassword#newInstance} factory method to
+ * Use the {@link AfterTeacher#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ForgetPassword extends Fragment {
-    private FireBaseServices fbs;
-    private EditText etEmail;
-    private Button btnReset,btnBack;
+public class AfterTeacher extends Fragment {
+FireBaseServices fbs;
+User user;
+Button btn12;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +32,7 @@ public class ForgetPassword extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ForgetPassword() {
+    public AfterTeacher() {
         // Required empty public constructor
     }
 
@@ -45,11 +42,11 @@ public class ForgetPassword extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ForgetPassword.
+     * @return A new instance of fragment AfterTeacher.
      */
     // TODO: Rename and change types and number of parameters
-    public static ForgetPassword newInstance(String param1, String param2) {
-        ForgetPassword fragment = new ForgetPassword();
+    public static AfterTeacher newInstance(String param1, String param2) {
+        AfterTeacher fragment = new AfterTeacher();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,42 +67,41 @@ public class ForgetPassword extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forget_password, container, false);
+        return inflater.inflate(R.layout.fragment_after_teacher, container, false);
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
-        btnBack=getView().findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btn12=getView().findViewById(R.id.btn12);
+        btn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayoutMain, new LogInFragment());
+                ft.replace(R.id.frameLayoutMain, new TheMeeting());
                 ft.commit();
             }
         });
         fbs=FireBaseServices.getInstance();
-        etEmail= getView().findViewById(R.id.etEmail);
-        btnReset= getView().findViewById(R.id.btnReset);
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fbs.getAuth().sendPasswordResetEmail(etEmail.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(getActivity(),"Check your email" ,Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Toast.makeText(getActivity(), "Failed. Check the email address you entered ",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+        fbs.getFire().collection("Users").whereEqualTo("email",fbs.getAuth().getCurrentUser().getEmail())
+                .get()
+                .addOnSuccessListener((QuerySnapshot querySnapshot)->{
+            if (querySnapshot.isEmpty()){
+                System.out.println("No users found.");
+                return;
             }
+            System.out.println("Number of users:"+querySnapshot.size());
+            for (DocumentSnapshot doc:querySnapshot.getDocuments()){
+                String userId = doc.getId();
+                user=doc.toObject(User.class);
+
+            }
+       })
+        .addOnFailureListener(e ->{
+            System.out.println("Error retrieving users:"+e.getMessage());
+
         });
+
     }
 
 }

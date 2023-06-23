@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,12 +86,15 @@ private Button btnAddAddFragment;
         etLASTn=getView().findViewById(R.id.etLASTn);
         etPhoneNum=getView().findViewById(R.id.etPhoneNum);
         etBirthday=getView().findViewById(R.id.etBirthday);
-        etEmail1=getView().findViewById(R.id.etEmail1);
-btnAddAddFragment=getView().findViewById(R.id.btnAddAddFragment);
+        btnAddAddFragment=getView().findViewById(R.id.btnAddAddFragment);
+
         btnAddAddFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
            addToFirestore();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new Choose_UserType());
+                ft.commit();
             }
         });
 
@@ -102,14 +106,12 @@ btnAddAddFragment=getView().findViewById(R.id.btnAddAddFragment);
         lname = etLASTn.getText().toString();
         phoneNum1 = etPhoneNum.getText().toString();
         birthd = etBirthday.getText().toString();
-        email2 = etEmail1.getText().toString();
 
-
-        if (fname.trim().isEmpty() || lname.trim().isEmpty() || phoneNum1.trim().isEmpty() || birthd.trim().isEmpty() || email2.trim().isEmpty()) {
+        if (fname.trim().isEmpty() || lname.trim().isEmpty() || phoneNum1.trim().isEmpty() || birthd.trim().isEmpty() ) {
             Toast.makeText(getActivity(), "some data is missing or incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user=new User(fname,lname,phoneNum1,birthd,email2);
+        User user=new User(fname,lname,phoneNum1,birthd,fbs.getAuth().getCurrentUser().getEmail());
 
 
         fbs.getFire().collection("Users")

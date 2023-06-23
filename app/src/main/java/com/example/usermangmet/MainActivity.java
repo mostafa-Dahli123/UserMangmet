@@ -12,12 +12,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    FireBaseServices fbs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        gotoLoginFragment();
+        fbs=FireBaseServices.getInstance();
+        if(fbs.getAuth().getCurrentUser()!=null){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayoutMain, new Choose_UserType());
+            ft.commit();
+        }else gotoLoginFragment();
     }
 
     private void gotoLoginFragment() {

@@ -23,7 +23,7 @@ import com.google.firebase.auth.AuthResult;
  * create an instance of this fragment.
  */
 public class LogInFragment extends Fragment {
-
+Button btnSP,btnFP;
     private EditText etUserName,etPassword;
     private Button btnLogin;
     private FireBaseServices fbs;
@@ -79,6 +79,24 @@ public class LogInFragment extends Fragment {
     public void onStart() {
         super.onStart();
         // connecting componens
+        btnFP=getView().findViewById(R.id.btnFP);
+        btnFP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new ForgetPassword());
+                ft.commit();
+            }
+        });
+        btnSP=getView().findViewById(R.id.btnSP);
+        btnSP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new SignUpFragment());
+                ft.commit();
+            }
+        });
         fbs = FireBaseServices.getInstance();
         etUserName = getView().findViewById(R.id.etUserNameLogIn);
         etPassword = getView().findViewById(R.id.etPassowrdLoginLogin);
@@ -100,7 +118,9 @@ public class LogInFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // PUT YOUR CODE HERE
-                            gotoUserListFragment();
+                            FragmentTransaction ft =getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.frameLayoutMain, new Choose_UserType());
+                            ft.commit();
                             //gotoAddUserFragment();
 
                         } else {
@@ -115,7 +135,7 @@ public class LogInFragment extends Fragment {
     public void gotoAddUserFragment()
     {
         FragmentTransaction ft =getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain, new AddUserFragment());
+        ft.replace(R.id.frameLayoutMain, new Choose_UserType());
         ft.commit();
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 public class SignUpFragment extends Fragment {
 
     private EditText etUserName,etPassword;
-    private Button btnSignUp;
+    private Button btnSignUp,btnSi1;
     private FireBaseServices fbs;
 
 
@@ -78,6 +79,15 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        btnSi1=getView().findViewById(R.id.btnSi1);
+        btnSi1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new LogInFragment());
+                ft.commit();
+            }
+        });
         // connecting componens
         fbs = FireBaseServices.getInstance();
         etUserName = getView().findViewById(R.id.etUserNameFragmenSU);
@@ -99,7 +109,9 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // PUT YOUR CODE HERE
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.frameLayoutMain, new AddUserFragment());
+                            ft.commit();
                         } else {
                             // PUT YOUR CODE HERE
                         }

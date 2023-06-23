@@ -7,6 +7,17 @@ public class User {
    private String PhoneNum;
    private String Email;
    private String photo;
+   private boolean isTeacher;
+
+   public boolean isTeacher() {
+      return isTeacher;
+   }
+
+   public void setTeacher(boolean teacher) {
+      isTeacher = teacher;
+   }
+
+
 
    public User() {
    }
@@ -20,6 +31,7 @@ public class User {
       this.photo = photo;
    }
 
+
    public User(String fname, String lname, String phoneNum1, String birthd, String email2) {
       Fname = fname;
       Lname = lname;
@@ -27,6 +39,7 @@ public class User {
       PhoneNum = phoneNum1;
       Email = email2;
       this.photo = "";
+      this.isTeacher=false;
    }
 
    public String getFname() {

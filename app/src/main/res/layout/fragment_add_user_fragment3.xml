@@ -56,23 +56,12 @@
             app:layout_constraintStart_toStartOf="@+id/etPhoneNum"
             app:layout_constraintTop_toBottomOf="@+id/etPhoneNum" />
 
-        <EditText
-            android:id="@+id/etEmail1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="54dp"
-            android:ems="10"
-            android:hint="EMAIL"
-            android:inputType="textEmailAddress"
-            app:layout_constraintStart_toStartOf="@+id/etBirthday"
-            app:layout_constraintTop_toBottomOf="@+id/etBirthday" />
-
         <Button
             android:id="@+id/btnAddAddFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="43dp"
-            android:layout_marginBottom="75dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="72dp"
             android:text="ADD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

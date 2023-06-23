@@ -49,8 +49,20 @@
             android:id="@+id/SignUpbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
             android:text="SignUp"
-            tools:layout_editor_absoluteX="169dp"
-            tools:layout_editor_absoluteY="414dp" />
+            app:layout_constraintStart_toStartOf="@+id/btnSignUpFragment"
+            app:layout_constraintTop_toBottomOf="@+id/btnSignUpFragment" />
+
+        <Button
+            android:id="@+id/btnSi1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="29dp"
+            android:text="Back To SignUp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

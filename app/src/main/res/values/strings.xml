@@ -2,4 +2,17 @@
     <string name="app_name">UserMangmet</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="UserType">
+        <item></item>
+        <item>Student</item>
+        <item>Teacher</item>
+
+    </string-array>
+    <string-array name="SubjectType">
+        <item></item>
+        <item>MATH</item>
+        <item>ARABIC</item>
+        <item>ENGLISH</item>
+        <item>PHYSICS</item>
+    </string-array>
 </resources>

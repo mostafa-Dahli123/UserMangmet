@@ -47,7 +47,11 @@ public class UserListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    boolean iSt;
 
+    public UserListFragment(boolean p){
+        this.iSt=p;
+    }
     public UserListFragment() {
         // Required empty public constructor
     }
@@ -151,8 +155,9 @@ public class UserListFragment extends Fragment {
 
                         for (DocumentChange dc : value.getDocumentChanges()){
                             if(dc.getType() == DocumentChange.Type.ADDED){
-
-                                userArrayList.add(dc.getDocument().toObject(User.class));
+                                if (dc.getDocument().toObject(User.class).isTeacher()==iSt) {
+                                    userArrayList.add(dc.getDocument().toObject(User.class));
+                                }
                             }
 
                             myAdapter.notifyDataSetChanged();
