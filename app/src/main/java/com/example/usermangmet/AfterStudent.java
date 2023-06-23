@@ -22,6 +22,9 @@ public class AfterStudent extends Fragment {
 Spinner spinner3;
     Button btn3;
     TextView textView3;
+    User user;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,6 +34,11 @@ Spinner spinner3;
     private String mParam1;
     private String mParam2;
 
+
+    public AfterStudent(User user) {
+        // Required empty public constructor
+        this.user=user;
+    }
     public AfterStudent() {
         // Required empty public constructor
     }
@@ -67,7 +75,7 @@ Spinner spinner3;
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayoutMain, new TheMeeting());
+                ft.replace(R.id.frameLayoutMain, new AfterTeacher(user,spinner3.getSelectedItem().toString()));
                 ft.commit();
             }
         });

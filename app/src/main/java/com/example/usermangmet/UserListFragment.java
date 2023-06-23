@@ -49,8 +49,10 @@ public class UserListFragment extends Fragment {
     private String mParam2;
     boolean iSt;
 
-    public UserListFragment(boolean p){
+    User user;
+    public UserListFragment(boolean p,User user){
         this.iSt=p;
+        this.user=user;
     }
     public UserListFragment() {
         // Required empty public constructor
@@ -108,10 +110,10 @@ public class UserListFragment extends Fragment {
 
         fbs = FireBaseServices.getInstance();
         userArrayList =new ArrayList<User>();
-        myAdapter = new MyAdapter(getActivity(),userArrayList);
+        myAdapter = new MyAdapter(getActivity(),userArrayList,user);
+
 
         recyclerView.setAdapter(myAdapter);
-
 
     EventChangeListener();
         //getUserData();

@@ -63,9 +63,37 @@ TextView textView1;
                 public void onClick(View v) {
                     String text= spinner.getSelectedItem().toString();
                     if(text.equals("Student")){
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.frameLayoutMain, new UserListFragment(true));
-                        ft.commit();
+                        fbs.getFire().collection("Users").whereEqualTo("email",fbs.getAuth().getCurrentUser().getEmail())
+                                .get()
+                                .addOnSuccessListener((QuerySnapshot querySnapshot)->{
+                                    if (querySnapshot.isEmpty()){
+                                        System.out.println("No users found.");
+                                        return;
+                                    }
+                                    System.out.println("Number of users:"+querySnapshot.size());
+                                    for (DocumentSnapshot doc:querySnapshot.getDocuments()){
+                                        String userId = doc.getId();
+                                        user=doc.toObject(User.class);
+                                        doc.getReference().update("teacher",false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                ft.replace(R.id.frameLayoutMain, new UserListFragment(true,user));
+                                                ft.commit();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+                                    }
+                                })
+                                .addOnFailureListener(e ->{
+                                    System.out.println("Error retrieving users:"+e.getMessage());
+
+                                });
+
                     }else if (text.equals("Teacher")){
                         fbs.getFire().collection("Users").whereEqualTo("email",fbs.getAuth().getCurrentUser().getEmail())
                                 .get()
@@ -82,7 +110,7 @@ TextView textView1;
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                                ft.replace(R.id.frameLayoutMain, new UserListFragment(false));
+                                                ft.replace(R.id.frameLayoutMain, new UserListFragment(false,user));
                                                 ft.commit();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {

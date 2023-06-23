@@ -1,12 +1,15 @@
 package com.example.usermangmet;
 
 import android.content.Context;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -16,10 +19,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<User>userArrayList;
+    User user;
 
-    public MyAdapter(Context context, ArrayList<User> userArrayList) {
+    public MyAdapter(Context context, ArrayList<User> userArrayList,User user) {
         this.context = context;
         this.userArrayList = userArrayList;
+        this.user=user;
     }
 
     @NonNull
@@ -41,6 +46,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.Email.setText(user.getEmail());
         holder.Birthday.setText(user.getBirthDay());
         holder.PhoneNum.setText(String.valueOf(user.getPhoneNum()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (user.isTeacher()) {
+                            sendSMS(user.getPhoneNum(), "Hello, this is your teacher "+user.getFname()+" "+user.getLname()+" if you need any help just call me"+user.getPhoneNum());
+                    Toast.makeText(context, "help send successfully", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    AppCompatActivity activity = (AppCompatActivity) context;
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutMain, new AfterStudent(userArrayList.get(position))).addToBackStack(null).commit();
+
+                }
+            }
+        });
     }
 
     @Override
@@ -58,6 +77,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             Email=itemView.findViewById(R.id.tvemail);
             Birthday=itemView.findViewById(R.id.tvbirthday);
             PhoneNum=itemView.findViewById(R.id.tvphonenumber);
+        }
+    }
+    public void sendSMS(String phoneNumber, String message) {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            // SMS sent successfully
+        } catch (Exception e) {
+            // Failed to send SMS
+            e.printStackTrace();
         }
     }
 }
