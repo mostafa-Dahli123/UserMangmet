@@ -74,6 +74,7 @@ TextView textView1;
                                     for (DocumentSnapshot doc:querySnapshot.getDocuments()){
                                         String userId = doc.getId();
                                         user=doc.toObject(User.class);
+                                        user.setTeacher(false);
                                         doc.getReference().update("teacher",false).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
@@ -106,6 +107,7 @@ TextView textView1;
                                     for (DocumentSnapshot doc:querySnapshot.getDocuments()){
                                         String userId = doc.getId();
                                         user=doc.toObject(User.class);
+                                        user.setTeacher(true);
                                         doc.getReference().update("teacher",true).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

@@ -39,21 +39,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        User user= userArrayList.get(position);
+        User user1= userArrayList.get(position);
 
-        holder. firstName.setText(user.getFname());
-        holder.lastName.setText(user.getLname());
-        holder.Email.setText(user.getEmail());
-        holder.Birthday.setText(user.getBirthDay());
-        holder.PhoneNum.setText(String.valueOf(user.getPhoneNum()));
+        holder. firstName.setText(user1.getFname());
+        holder.lastName.setText(user1.getLname());
+        holder.Email.setText(user1.getEmail());
+        holder.Birthday.setText(user1.getBirthDay());
+        holder.PhoneNum.setText(String.valueOf(user1.getPhoneNum()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (user.isTeacher()) {
-                            sendSMS(user.getPhoneNum(), "Hello, this is your teacher "+user.getFname()+" "+user.getLname()+" if you need any help just call me"+user.getPhoneNum());
+                            sendSMS(user1.getPhoneNum(), "Hello, this is your teacher "+user.getFname()+" "+user.getLname()+" if you need any help just call me"+user.getPhoneNum());
                     Toast.makeText(context, "help send successfully", Toast.LENGTH_SHORT).show();
                 }else {
-
                     AppCompatActivity activity = (AppCompatActivity) context;
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutMain, new AfterStudent(userArrayList.get(position))).addToBackStack(null).commit();
 

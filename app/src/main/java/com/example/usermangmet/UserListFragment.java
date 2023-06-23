@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class UserListFragment extends Fragment {
+    private TextView SignOut11;
     private RecyclerView recyclerView;
     FireBaseServices fbs;
     private EditText etTest;
@@ -96,6 +99,7 @@ public class UserListFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+        SignOut11=getView().findViewById(R.id.SignOut11);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
@@ -109,6 +113,15 @@ public class UserListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         fbs = FireBaseServices.getInstance();
+        SignOut11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fbs.getAuth().signOut();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new LogInFragment());
+                ft.commit();
+            }
+        });
         userArrayList =new ArrayList<User>();
         myAdapter = new MyAdapter(getActivity(),userArrayList,user);
 
